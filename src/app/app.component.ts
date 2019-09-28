@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,17 +15,33 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any}> = [];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              public translateService: TranslateService) {
+
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
+    this.translateService.setDefaultLang("es");
+    const pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Sign in', component: ListPage },
+      { title: 'Products', component: ListPage },
+      { title: 'Categories', component: ListPage },
+      { title: 'Products', component: ListPage },
+      { title: 'Invoices', component: ListPage },
+      { title: 'Shopping', component: ListPage },
+      { title: 'Reports', component: ListPage },
+      { title: 'Support', component: ListPage },
+      { title: 'About', component: ListPage }
     ];
 
+    pages.forEach(page => {
+      this.translateService.get(page.title)
+        .subscribe((res:string) => this.pages.push({title: res, component: page.component}),
+          error => this.pages.push({title: page.title, component: page.component}))
+    })
   }
 
   initializeApp() {
