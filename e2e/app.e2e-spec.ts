@@ -1,0 +1,22 @@
+import { Page } from './app.po';
+
+describe('App', () => {
+  let page: Page;
+
+  beforeEach(() => {
+    page = new Page();
+  });
+
+  describe('default screen', () => {
+    beforeEach(() => {
+      page.navigateTo('/');
+    });
+
+    it('should have a title saying Home', () => {
+      page.getPageOneTitleText().then(title => {
+        console.log(title);
+        expect(title).toEqual('Home');
+      });
+    });
+  })
+});
