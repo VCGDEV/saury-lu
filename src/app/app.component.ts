@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { TranslateService } from '@ngx-translate/core';
+import {DBProvider} from "../services/db.provider";
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +20,8 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar,
               public splashScreen: SplashScreen,
-              public translateService: TranslateService) {
+              public translateService: TranslateService,
+              public dbProvider: DBProvider) {
 
     this.initializeApp();
 

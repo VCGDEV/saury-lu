@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { DBProvider } from "../services/db.provider";
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {HttpClientModule, HttpClient} from '@angular/common/http'
@@ -43,6 +44,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ListPage
   ],
   providers: [
+    DBProvider,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

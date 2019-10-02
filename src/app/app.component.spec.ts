@@ -7,10 +7,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService} from "@ngx-translate/core";
 import { MyApp } from './app.component';
 import {Observable} from "rxjs";
+import {DBProvider} from "../services/db.provider";
 
 describe('MyApp', () => {
   let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy,
-  translateSpy,translateLngSpy, getSpy;
+  translateSpy,translateLngSpy, getSpy, dbProviderSpy;
 
   beforeEach(async(() => {
     statusBarSpy = { styleDefault: jest.fn() };
@@ -28,6 +29,8 @@ describe('MyApp', () => {
       get: getSpy
     };
 
+    dbProviderSpy = {};
+
     TestBed.configureTestingModule({
       declarations: [MyApp],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -35,7 +38,8 @@ describe('MyApp', () => {
         { provide: StatusBar, useValue: statusBarSpy },
         { provide: SplashScreen, useValue: splashScreenSpy },
         { provide: Platform, useValue: platformSpy },
-        { provide: TranslateService, useValue: translateSpy}
+        { provide: TranslateService, useValue: translateSpy},
+        { provide: DBProvider, useValue: dbProviderSpy}
       ]
     }).compileComponents();
   }));

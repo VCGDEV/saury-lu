@@ -29,7 +29,6 @@ npm-debug.log*
 /platforms
 /plugins
 /www
-<<<<<<< HEAD
-=======
 .idea/
->>>>>>> Initial commit
+resources/
+config.xml
