@@ -38,6 +38,13 @@ export class DBAccessor<T extends Entity> {
     return `${sql} ${values}`;
   }
 
+  _createFindAllQuery(entity: T): string {
+    const properties = this._getProperties(entity);
+    let sql = `select `;
+    properties.forEach(prop => sql += `${prop}, `);
+    return `${this._replaceLastComma(sql)} from ${entity.table}`;
+  }
+
   private _replaceLastComma(sql: string) {
     const lastIdx = sql.lastIndexOf(',');
     return sql.substr(0, lastIdx);
