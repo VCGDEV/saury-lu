@@ -4,11 +4,10 @@ import {TABLE_N} from "./TABLE_N";
 @Injectable()
 export class DBAccessor<T extends Entity> {
 
-  getByIdSql(entity: T) : string {
+  _createGetByIdQuery(entity: T) : string {
     let sql = `select`;
     // remove table property
-    let properties = Object.getOwnPropertyNames(entity)
-      .filter(a => a !== 'table');
+    const properties = this._getProperties(entity);
     let where = 'where ';
     properties.forEach(prop => {
       if(`${entity.table.toString().toLowerCase()}Id` === prop) {
@@ -16,12 +15,33 @@ export class DBAccessor<T extends Entity> {
       }
       sql+=` ${prop},`;
     });
-    const lastIdx = sql.lastIndexOf(',');
-    sql = sql.substr(0, lastIdx);
+    sql = this._replaceLastComma(sql);
     sql += ` from ${entity.table} ${where}`
     return sql;
   }
 
+  private _getProperties(entity: T): Array<any> {
+    return Object.getOwnPropertyNames(entity)
+      .filter(a => a !== 'table');
+  }
+
+  _createInsertQuery(entity: T) {
+    const properties = this._getProperties(entity);
+    let sql = `insert into ${entity.table}(`;
+    let values = 'values(';
+    properties.forEach(prop => {
+      sql += `${prop}, `;
+      values += '?, ';
+    });
+    sql = `${this._replaceLastComma(sql)})`;
+    values = `${this._replaceLastComma(values)})`;
+    return `${sql} ${values}`;
+  }
+
+  private _replaceLastComma(sql: string) {
+    const lastIdx = sql.lastIndexOf(',');
+    return sql.substr(0, lastIdx);
+  }
 }
 
 export class Entity {
