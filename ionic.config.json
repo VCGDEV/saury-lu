@@ -1,5 +1,7 @@
 {
   "name": "saury-lu",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
