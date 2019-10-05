@@ -6,11 +6,12 @@ export class DBAccessor<T extends Entity> {
 
   _createGetByIdQuery(entity: T) : string {
     let sql = `select`;
-    // remove table property
-    const properties = this._getProperties(entity);
+    let properties = this._getProperties(entity);
+    properties = properties.map(this._replacePropName);
     let where = 'where ';
+    const entityTableId = `${this._replacePropName(entity.table).toString()}_id`;
     properties.forEach(prop => {
-      if(`${entity.table.toString().toLowerCase()}Id` === prop) {
+      if(entityTableId === prop) {
         where += `${prop.toString()}=?`;
       }
       sql+=` ${prop},`;
@@ -31,7 +32,8 @@ export class DBAccessor<T extends Entity> {
   }
 
   _createInsertQuery(entity: T) {
-    const properties = this._getProperties(entity);
+    let properties = this._getProperties(entity);
+    properties = properties.map(this._replacePropName);
     let sql = `insert into ${entity.table}(`;
     let values = 'values(';
     properties.forEach(prop => {
@@ -44,10 +46,14 @@ export class DBAccessor<T extends Entity> {
   }
 
   _createFindAllQuery(entity: T): string {
-    const properties = this._getProperties(entity);
+    let properties = this._getProperties(entity);
     let sql = `select `;
+    properties = properties.map(this._replacePropName);
     properties.forEach(prop => sql += `${prop}, `);
     return `${this._replaceLastComma(sql)} from ${entity.table}`;
+  }
+  private _replacePropName(prop: string) {
+    return prop.replace(/(?:^|\.?)([A-Z])/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "");
   }
 
   private _replaceLastComma(sql: string) {

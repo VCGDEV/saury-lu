@@ -4,7 +4,6 @@ import {Platform} from "ionic-angular";
 const DB_NAME: string = 'sy_db';
 const win: any = window;
 
-//TODO update with real tables and columns
 const TABLE_NAMES = [
   `create table if not exists system(system_id varchar(36) primary key,
     h_im int  not null,
