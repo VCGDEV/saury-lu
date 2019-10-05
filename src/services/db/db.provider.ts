@@ -1,16 +1,16 @@
 import {Injectable} from "@angular/core";
 import {Platform} from "ionic-angular";
+import {TABLE_N} from "./TABLE_N";
 
 const DB_NAME: string = 'sy_db';
 const win: any = window;
 
 const TABLE_NAMES = [
-  `create table if not exists system(system_id varchar(36) primary key,
-    h_im int  not null,
-    h_mcm int not null,
-    i_sign int not null,
-    k_c varchar(36)
-  )`
+  `create table ${TABLE_N.Category}(category_id varchar(36) primary key,
+    category_name varchar(100) not null,
+    is_active boolean not null,
+    image_file varchar(250)
+    )`
 ];
 
 
