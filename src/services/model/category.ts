@@ -5,6 +5,6 @@ export class Category extends Entity{
   table: TABLE_N = TABLE_N.Category;
   categoryId: string = '';
   categoryName: string = '';
-  isActive: boolean = false;
+  isActive: boolean = true;
   imageFile: string = '';
 }

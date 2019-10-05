@@ -2,7 +2,7 @@ import {DBAccessor} from "../db/db.accessor";
 import {Category} from "../model/category";
 import {DBProvider} from "../db/db.provider";
 import {Injectable} from "@angular/core";
-
+import uuid  from 'uuid/v4';
 @Injectable()
 export class CategoryService extends DBAccessor<Category> {
 
@@ -11,6 +11,7 @@ export class CategoryService extends DBAccessor<Category> {
   }
 
   save(category: Category): Promise<boolean> {
+    category.categoryId = uuid();
     const query = this._createInsertQuery(category);
     const params = this._getValues(category);
     return new Promise<boolean>((resolve, reject) => {

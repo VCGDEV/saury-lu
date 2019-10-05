@@ -47,7 +47,6 @@ export class DBProvider {
 
   _initDB() {
     for (let i = 0; i < TABLE_NAMES.length ; i++) {
-      console.log(TABLE_NAMES[i]);
       this.query(TABLE_NAMES[i], [])
         .then(() => console.info(`Table created: ${i}`))
         .catch(err => console.error(`could not create table`, err));

@@ -7,7 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService} from "@ngx-translate/core";
 import { MyApp } from './app.component';
 import {Observable} from "rxjs";
-import {DBProvider} from "../services/db.provider";
+import {DBProvider} from "../services/db/db.provider";
 
 describe('MyApp', () => {
   let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy,

@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { TranslateService } from '@ngx-translate/core';
-import {DBProvider} from "../services/db.provider";
+import {CategoriesPage} from "../pages/categories/categories";
 
 @Component({
   templateUrl: 'app.html'
@@ -20,8 +20,7 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar,
               public splashScreen: SplashScreen,
-              public translateService: TranslateService,
-              public dbProvider: DBProvider) {
+              public translateService: TranslateService) {
 
     this.initializeApp();
 
@@ -30,7 +29,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Sign in', component: ListPage },
       { title: 'Products', component: ListPage },
-      { title: 'Categories', component: ListPage },
+      { title: 'Categories', component: CategoriesPage },
       { title: 'Products', component: ListPage },
       { title: 'Invoices', component: ListPage },
       { title: 'Shopping', component: ListPage },
