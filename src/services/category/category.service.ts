@@ -1,7 +1,9 @@
 import {DBAccessor} from "../db/db.accessor";
 import {Category} from "../model/category";
 import {DBProvider} from "../db/db.provider";
+import {Injectable} from "@angular/core";
 
+@Injectable()
 export class CategoryService extends DBAccessor<Category> {
 
   constructor(private _db: DBProvider) {
