@@ -6,7 +6,7 @@ const DB_NAME: string = 'sy_db';
 const win: any = window;
 
 const TABLE_NAMES = [
-  `create table ${TABLE_N.Category}(category_id varchar(36) primary key,
+  `create table if not exists ${TABLE_N.Category}(category_id varchar(36) primary key,
     category_name varchar(100) not null,
     is_active boolean not null,
     image_file varchar(250)
