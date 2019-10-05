@@ -31,6 +31,7 @@
     "@ionic/storage": "2.2.0",
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
+    "@types/node-uuid": "0.0.28",
     "cordova-sqlite-storage": "3.4.0",
     "core-js": "^3.2.1",
     "ionic-angular": "3.9.5",
