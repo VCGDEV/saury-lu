@@ -1,5 +1,7 @@
-import {DBAccessor, Entity} from "./db.accessor";
+import {DBAccessor} from "./db.accessor";
 import {TABLE_N} from "./TABLE_N";
+import {Entity} from "./entity";
+const uuid = 'b671a64-40d5-491e-99b0-da01ff1f3341';
 
 describe('DatabaseAccessor', () => {
   const dbAccesss:DBAccessor<System> = new DBAccessor();
@@ -20,6 +22,17 @@ describe('DatabaseAccessor', () => {
     const expectedSQL = `select systemId, name from ${TABLE_N.System}`;
     const query = dbAccesss._createFindAllQuery(new System());
     expect(query).toEqual(expectedSQL);
+  });
+
+  it('should extract entity values', () =>{
+
+    const system = new System();
+    system.name = 'name';
+    system.systemId = uuid;
+    const expectedValues = [system.systemId, 'name'];
+
+    const values = dbAccesss._getValues(system);
+    expect(values).toEqual(expectedValues);
   });
 
 });

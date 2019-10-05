@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {TABLE_N} from "./TABLE_N";
+import {Entity} from "./entity";
 
 @Injectable()
 export class DBAccessor<T extends Entity> {
@@ -23,6 +23,11 @@ export class DBAccessor<T extends Entity> {
   private _getProperties(entity: T): Array<any> {
     return Object.getOwnPropertyNames(entity)
       .filter(a => a !== 'table');
+  }
+
+  _getValues(entity: T): Array<any> {
+    const props = this._getProperties(entity);
+    return props.map(prop => entity[prop]);
   }
 
   _createInsertQuery(entity: T) {
@@ -49,9 +54,5 @@ export class DBAccessor<T extends Entity> {
     const lastIdx = sql.lastIndexOf(',');
     return sql.substr(0, lastIdx);
   }
-}
-
-export class Entity {
-  table: TABLE_N;
 }
 
