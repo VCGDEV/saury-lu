@@ -9,7 +9,7 @@ describe('CategoryService', () =>{
   let idProviderSpy: UuidProvider;
   beforeAll(() => {
     const categories = [
-        {'category_id': '1', 'category_name': 'example', 'image_file': '', 'is_active': true}
+        {'category_id': '1', 'category_name': 'example', 'image_file': '', 'is_active': 'true'}
     ];
     const catRes = { res: { rows: categories}};
     const item = jest.fn().mockImplementation((idx: number) => catRes.res.rows[idx]);
@@ -81,7 +81,7 @@ describe('CategoryService', () =>{
   });
 
   it('should return categories array in promise', () => {
-    //expect.assertions(1);
+    expect.assertions(1);
     const category = new Category();
     category.categoryId='1';
     category.categoryName='example';
