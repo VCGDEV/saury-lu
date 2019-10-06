@@ -7,6 +7,19 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let category of categories"
+            (click)="itemTapped($event, category)">
+      <ion-icon
+                [name]="category.isActive ? 'checkmark-circle' : 'close-circle'"
+                [color]="category.isActive ? 'success' : 'danger'"
+                item-start></ion-icon>
+      {{category.categoryName}}
+      <div class="item-note" item-end>
+        {{category.isActive ? 'Active' : 'Inactive'}}
+      </div>
+    </button>
+  </ion-list>
   <ion-fab bottom right (tap)="createCategory()">
     <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
   </ion-fab>

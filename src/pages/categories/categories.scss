@@ -6,4 +6,7 @@ page-categories {
        */
       min-height: 1px !important;
     }
+    .category-inactive > div.toolbar-title {
+      color: red !important;
+    }
 }

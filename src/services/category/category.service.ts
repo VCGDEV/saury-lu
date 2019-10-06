@@ -43,10 +43,10 @@ export class CategoryService extends DBAccessor<Category>
           for(let row = 0; row < data.length; row++) {
               const item = data.item(row);
               const category = new Category();
-              const targetProps = this._getProperties(category);
-              targetProps.forEach(prop => {
-                category[prop] = item[this.toSnakeCase(prop)];
-              });
+              category.isActive = item.is_active === 'true';
+              category.categoryName = item.category_name;
+              category.categoryId = item.category_id;
+              category.imageFile = item.image_file;
               result.push(category);
           }
           resolve(result);
