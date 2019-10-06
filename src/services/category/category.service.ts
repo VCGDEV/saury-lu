@@ -2,16 +2,21 @@ import {DBAccessor} from "../db/db.accessor";
 import {Category} from "../model/category";
 import {DBProvider} from "../db/db.provider";
 import {Injectable} from "@angular/core";
-import uuid  from 'uuid/v4';
-@Injectable()
-export class CategoryService extends DBAccessor<Category> {
+import {CrudRepository} from "../db/crud.repository";
+import {UuidProvider} from "../db/uuid.provider";
 
-  constructor(private _db: DBProvider) {
+@Injectable()
+export class CategoryService extends DBAccessor<Category>
+  implements CrudRepository<Category>
+  {
+
+  constructor(private _db: DBProvider,
+              private _idProv: UuidProvider) {
     super();
   }
 
   save(category: Category): Promise<boolean> {
-    category.categoryId = uuid();
+    category.categoryId = this._idProv.id();
     const query = this._createInsertQuery(category);
     const params = this._getValues(category);
     return new Promise<boolean>((resolve, reject) => {
@@ -25,6 +30,37 @@ export class CategoryService extends DBAccessor<Category> {
           reject(false);
         });
     });
+  }
+
+  findAll(): Promise<Array<Category>> {
+    const category = new Category();
+    const sql:string = this._createFindAllQuery(category);
+    return new Promise<Array<Category>>((resolve, reject) => {
+      this._db.query(sql, [])
+        .then((res) => {
+          const data = this._db.parseData(res);
+          let result: Array<Category> = new Array<Category>();
+          for(let row = 0; row < data.length; row++) {
+              const item = data.item(row);
+              const category = new Category();
+              const targetProps = this._getProperties(category);
+              targetProps.forEach(prop => {
+                category[prop] = item[this.toSnakeCase(prop)];
+              });
+              result.push(category);
+          }
+          resolve(result);
+        })
+        .catch(err => reject(false));
+    });
+  }
+
+  findById(id: string): Promise<Category> {
+    return Promise.reject('');
+  }
+
+  update(category: Category): Promise<Category> {
+    return Promise.reject('');
   }
 
   private validate(category: Category): Array<string> {
