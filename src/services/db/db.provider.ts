@@ -69,4 +69,18 @@ export class DBProvider {
       }
     });
   }
+
+
+  parseData(data: any): any {
+    if (this.platform.is('cordova') && win.sqlitePlugin) {
+      let result = [];
+      for (let i = 0; i < data.res.rows.length; i++) {
+        const row = data.res.rows.item(i);
+        result.push(row);
+      }
+      return result;
+    } else {
+      return data.res.rows;
+    }
+  }
 }
