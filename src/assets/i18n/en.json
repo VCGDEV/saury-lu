@@ -20,5 +20,7 @@
   "Add Category": "Add Category",
   "Category name": "Category name",
   "Is active": "Is active",
-  "Submit": "Submit"
+  "Submit": "Submit",
+  "Update Category": "Update Category",
+  "Could not update category, please try later": "Could not update category, please try later"
 }

@@ -20,5 +20,8 @@
   "Add Category": "Agregar Categoría",
   "Category name": "Nombre de categoría",
   "Is active": "Activo/Inactivo",
-  "Submit": "Aceptar"
+  "Submit": "Aceptar",
+  "Update Category": "Actualizar Categoría",
+  "Could not update category, please try later": "No fue posible actualizar categoría, intente más tarde"
+
 }

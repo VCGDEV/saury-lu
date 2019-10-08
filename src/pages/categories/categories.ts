@@ -4,6 +4,7 @@ import {AddCategoryComponent} from "./add/add.category.component";
 import {CategoryService} from "../../services/category/category.service";
 import {Category} from "../../services/model/category";
 import {TranslateService} from "@ngx-translate/core";
+import {UpdateCategoryComponent} from "./update/update.category.component";
 
 @IonicPage()
 @Component({
@@ -43,6 +44,6 @@ export class CategoriesPage {
   }
 
   itemTapped(event, item) {
-    console.log(item);
+    this.navCtrl.push(UpdateCategoryComponent, {category: item});
   }
 }
