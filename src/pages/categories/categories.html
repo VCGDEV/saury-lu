@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Categories</ion-title>
+    <ion-title>{{ 'Categories' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -16,7 +16,7 @@
                 item-start></ion-icon>
       {{category.categoryName}}
       <div class="item-note" item-end>
-        {{category.isActive ? 'Active' : 'Inactive'}}
+        {{category.isActive ? ('Active' | translate) : ('Inactive' | translate) }}
       </div>
     </button>
   </ion-list>

@@ -4,15 +4,24 @@ import {DBProvider} from "../db/db.provider";
 import {Injectable} from "@angular/core";
 import {CrudRepository} from "../db/crud.repository";
 import {UuidProvider} from "../db/uuid.provider";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable()
 export class CategoryService extends DBAccessor<Category>
   implements CrudRepository<Category>
   {
 
+  private _catEmptyErr:string = 'Category name should not be empty';
+  private _catActiveOrInactiveErr: string = 'Category should be set as active or inactive';
+
   constructor(private _db: DBProvider,
-              private _idProv: UuidProvider) {
+              private _idProv: UuidProvider,
+              private translate: TranslateService) {
     super();
+    this.translate.get(this._catEmptyErr)
+      .subscribe( (next: string ) => this._catEmptyErr = next );
+    this.translate.get(this._catActiveOrInactiveErr)
+      .subscribe( (next: string ) => this._catActiveOrInactiveErr = next );
   }
 
   save(category: Category): Promise<boolean> {

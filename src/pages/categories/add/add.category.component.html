@@ -1,20 +1,20 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Add Category</ion-title>
+    <ion-title>{{'Add Category' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
   <form (ngSubmit)="createCategory()">
     <ion-list>
       <ion-item>
-        <ion-label>Category name</ion-label>
+        <ion-label>{{ 'Category name' | translate }}</ion-label>
         <ion-input type="text" [(ngModel)]="category.categoryName" name="categoryName"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Is active</ion-label>
+        <ion-label>{{ 'Is active' | translate }}</ion-label>
         <ion-toggle [(ngModel)]="category.isActive" name="isActive"></ion-toggle>
       </ion-item>
     </ion-list>
-    <button ion-button full type="submit" [disabled]="isCategoryValid()">Submit</button>
+    <button ion-button full type="submit" [disabled]="isCategoryValid()">{{ 'Submit' | translate }}</button>
   </form>
 </ion-content>

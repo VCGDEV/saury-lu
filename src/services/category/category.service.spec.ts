@@ -1,25 +1,33 @@
 import {CategoryService} from "./category.service";
 import {Category} from "../model/category";
 import {UuidProvider} from "../db/uuid.provider";
+import {TranslateService} from "@ngx-translate/core";
+import {Observable} from "rxjs";
 
 describe('CategoryService', () =>{
-  let dbSpy, querySpy, dbSpyErr, querySpyErr, idSpy, parseDataSpy;
+  let dbSpy, querySpy, dbSpyErr, querySpyErr, idSpy, parseDataSpy, getSpy;
   let categoryService: CategoryService;
   let errCategoryService: CategoryService;
   let idProviderSpy: UuidProvider;
+  let translateSpy;
   beforeAll(() => {
     const categories = [
         {'category_id': '1', 'category_name': 'example', 'image_file': '', 'is_active': 'true'}
     ];
     const catRes = { res: { rows: categories}};
     const item = jest.fn().mockImplementation((idx: number) => catRes.res.rows[idx]);
+
     const result = {
       length: catRes.res.rows.length,
       item: item
-    }
+    };
+
     querySpy = jest.fn().mockImplementation(() => Promise.resolve(catRes));
     querySpyErr = jest.fn().mockImplementation(() => Promise.reject(false));
     parseDataSpy = jest.fn().mockImplementation(() => result);
+    getSpy = jest.fn().mockImplementation((key: string | Array<string>, interpolateParams?: Object) =>
+      Observable.create(observer => observer.next(key))
+    );
     idSpy = jest.fn().mockImplementation(() => new Date().getTime().toString());
     dbSpy = {
       query: querySpy,
@@ -35,8 +43,10 @@ describe('CategoryService', () =>{
       id : idSpy
     };
 
-    categoryService = new CategoryService(dbSpy, idProviderSpy);
-    errCategoryService = new CategoryService(dbSpyErr, idProviderSpy);
+    translateSpy = { get: getSpy };
+
+    categoryService = new CategoryService(dbSpy, idProviderSpy, translateSpy);
+    errCategoryService = new CategoryService(dbSpyErr, idProviderSpy, translateSpy);
   });
 
   it('save new category into db',() => {

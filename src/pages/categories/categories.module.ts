@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CategoriesPage } from './categories';
 import {AddCategoryComponent} from "./add/add.category.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import {AddCategoryComponent} from "./add/add.category.component";
     AddCategoryComponent,
   ],
   imports: [
-    IonicPageModule.forChild(CategoriesPage)
+    IonicPageModule.forChild(CategoriesPage),
+    TranslateModule.forChild()
   ],
   entryComponents: [
     CategoriesPage,

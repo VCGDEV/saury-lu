@@ -3,13 +3,7 @@ import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angu
 import {AddCategoryComponent} from "./add/add.category.component";
 import {CategoryService} from "../../services/category/category.service";
 import {Category} from "../../services/model/category";
-
-/**
- * Generated class for the CategoriesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -18,16 +12,19 @@ import {Category} from "../../services/model/category";
 })
 export class CategoriesPage {
   public categories: Array<Category> = [];
+  private _loadingMsg = 'Loading categories';
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public categoryService: CategoryService,
+              public translate: TranslateService,
               public loadingCtrl: LoadingController) {
+    this.translate.get(this._loadingMsg)
+      .subscribe((next: string) => this._loadingMsg = next);
   }
 
   ionViewDidEnter() {
-    console.log('ionViewDidLoad CategoriesPage');
     const loading = this.loadingCtrl.create({
-      content: 'Loading categories',
+      content: this._loadingMsg,
       dismissOnPageChange: true
     });
     loading.present({animate: true});
@@ -38,17 +35,14 @@ export class CategoriesPage {
       })
       .catch(err => {
         loading.dismiss();
-        console.error( `could not get data`, err)
       });
   }
 
   createCategory() {
-    console.log(`go to create cat component`);
     this.navCtrl.push(AddCategoryComponent);
   }
 
   itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
     console.log(item);
   }
 }
