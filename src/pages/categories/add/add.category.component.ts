@@ -33,7 +33,6 @@ export class AddCategoryComponent {
   }
 
   ionViewDidLoad() {
-    this.errMsg = '';
   }
 
   createCategory() {
@@ -47,7 +46,6 @@ export class AddCategoryComponent {
         this.navCtrl.pop()
       })
       .catch(err=>{
-        this.errMsg = '';
         loading.dismiss()
           .then(()=>{
             const alert = this.alertCtrl.create({
