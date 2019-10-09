@@ -13,7 +13,7 @@ export class CategoryService extends DBAccessor<Category>
 
   private _catEmptyErr:string = 'Category name should not be empty';
   private _catActiveOrInactiveErr: string = 'Category should be set as active or inactive';
-
+  private _idNotNull: string = 'Id should not be null';
   constructor(private _db: DBProvider,
               private _idProv: UuidProvider,
               private translate: TranslateService) {
@@ -22,23 +22,26 @@ export class CategoryService extends DBAccessor<Category>
       .subscribe( (next: string ) => this._catEmptyErr = next );
     this.translate.get(this._catActiveOrInactiveErr)
       .subscribe( (next: string ) => this._catActiveOrInactiveErr = next );
+    this.translate.get(this._idNotNull)
+      .subscribe(next => this._idNotNull = next);
   }
 
   save(category: Category): Promise<boolean> {
     category.categoryId = this._idProv.id();
     const query = this._createInsertQuery(category);
     const params = this._getValues(category);
-    return new Promise<boolean>((resolve, reject) => {
-      const errs = this.validate(category);
-      if(errs.length > 1) {
-        reject(errs);
-      }
-      this._db.query(query, params)
-        .then(() => resolve(true))
-        .catch(err => {
-          reject(false);
-        });
-    });
+    const errs = this.validate(category);
+    if(errs.length > 0){
+      return Promise.reject(errs);
+    } else {
+      return new Promise<boolean>((resolve, reject) => {
+        this._db.query(query, params)
+          .then(() => resolve(true))
+          .catch(err => {
+            reject(false);
+          });
+      });
+    }
   }
 
   findAll(): Promise<Array<Category>> {
@@ -69,16 +72,36 @@ export class CategoryService extends DBAccessor<Category>
   }
 
   update(category: Category): Promise<Category> {
-    return Promise.reject('');
+    const arrErrors = this.validate(category, true);
+    if(arrErrors.length > 0) {
+      return Promise.reject(arrErrors);
+    } else {
+      return new Promise<Category>((resolve, reject) => {
+        const updateQuery = this._createUpdateQuery(category);
+        const params = this._getValues(category)
+          .filter(value => value !== category.categoryId);
+        params.push(category.categoryId);
+        this._db.update(updateQuery, params)
+          .then(() => resolve(category))
+          .catch((err) =>{
+           console.log(err);
+          });
+      });
+    }
   }
 
-  private validate(category: Category): Array<string> {
+  private validate(category: Category, update:boolean = false): Array<string> {
     const arrayErrs:Array<string> = new Array<string>();
+
+    if(update && (!category.categoryId || category.categoryId === '') ){
+      arrayErrs.push(this._idNotNull);
+    }
+
     if(!category.categoryName || category.categoryName === '') {
-      arrayErrs.push(`Category name should not be empty`);
+      arrayErrs.push(this._catEmptyErr);
     }
     if (category.isActive === undefined) {
-      arrayErrs.push(`Category should be set as active or inactive`);
+      arrayErrs.push(this._catActiveOrInactiveErr);
     }
     return arrayErrs;
   }

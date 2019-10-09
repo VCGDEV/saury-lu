@@ -22,6 +22,7 @@
   "Is active": "Activo/Inactivo",
   "Submit": "Aceptar",
   "Update Category": "Actualizar Categoría",
-  "Could not update category, please try later": "No fue posible actualizar categoría, intente más tarde"
+  "Could not update category, please try later": "No fue posible actualizar categoría, intente más tarde",
+  "Id should not be null": "El ID no debe ser nulo"
 
 }
