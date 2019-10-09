@@ -70,6 +70,10 @@ export class DBProvider {
     });
   }
 
+  update(query: string, params: any[]): Promise<any> {
+    return this.query(query, params);
+  }
+
 
   parseData(data: any): any {
     if (this.platform.is('cordova') && win.sqlitePlugin) {
