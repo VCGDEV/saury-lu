@@ -31,12 +31,14 @@ describe('CategoryService', () =>{
     idSpy = jest.fn().mockImplementation(() => new Date().getTime().toString());
     dbSpy = {
       query: querySpy,
-      parseData: parseDataSpy
+      parseData: parseDataSpy,
+      update: jest.fn().mockImplementation(() => Promise.resolve(true))
     };
 
     dbSpyErr = {
       query : querySpyErr,
-      parseData: parseDataSpy
+      parseData: parseDataSpy,
+      update: jest.fn().mockImplementation(() => Promise.reject(false))
     };
 
     idProviderSpy = {
@@ -98,6 +100,31 @@ describe('CategoryService', () =>{
     const categories = [category];
     const promise = categoryService.findAll();
     promise.then((res) => expect(res).toEqual(categories));
+  });
+
+  it(`should have validation errors`, () => {
+    const category = new Category();
+    category.isActive = undefined;
+    const errs = [`Id should not be null`, `Category name should not be empty`,
+      `Category should be set as active or inactive`];
+
+    const promise = categoryService.update(category);
+
+    expect.assertions(1);
+
+    promise.catch(res => expect(res).toEqual(errs));
+  });
+
+
+  it(`should update category`, () => {
+    const category = new Category();
+    category.categoryId = '1';
+    category.categoryName = 'example';
+
+    const promise = categoryService.update(category);
+
+    expect.assertions(1);
+    promise.then(res => expect(res).toEqual(category));
   });
 
 });

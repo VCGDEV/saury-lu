@@ -22,5 +22,6 @@
   "Is active": "Is active",
   "Submit": "Submit",
   "Update Category": "Update Category",
-  "Could not update category, please try later": "Could not update category, please try later"
+  "Could not update category, please try later": "Could not update category, please try later",
+  "Id should not be null": "Id should not be null"
 }
