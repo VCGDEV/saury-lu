@@ -10,7 +10,11 @@ const TABLE_NAMES = [
     category_name varchar(100) not null,
     is_active boolean not null,
     image_file varchar(250)
-    )`
+    )`,
+  `create table if not exist ${TABLE_N.Provider}(provider_id varchar(36) primary key,
+    description varchar(150) not null,
+    is_active boolean not null  
+  )`
 ];
 
 
@@ -71,6 +75,14 @@ export class DBProvider {
   }
 
   update(query: string, params: any[]): Promise<any> {
+    return this.query(query, params);
+  }
+
+  save(query: string, params: any[]): Promise<any> {
+    return this.query(query, params);
+  }
+
+  findOne(query: string, params: any[]): Promise<any> {
     return this.query(query, params);
   }
 
