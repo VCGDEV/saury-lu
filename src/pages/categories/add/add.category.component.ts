@@ -43,7 +43,7 @@ export class AddCategoryComponent {
     this.categoryService.save(this.category)
       .then(res=> {
         loading.dismiss();
-        this.navCtrl.pop()
+        this.navCtrl.pop();
       })
       .catch(err=>{
         loading.dismiss()

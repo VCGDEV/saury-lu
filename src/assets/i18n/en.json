@@ -2,6 +2,7 @@
   "Home" : "Home",
   "Sign in" : "Sign in",
   "Customers": "Customers",
+  "Providers": "Providers",
   "Categories": "Categories",
   "Products": "Products",
   "Invoices": "Invoices",
@@ -23,5 +24,13 @@
   "Submit": "Submit",
   "Update Category": "Update Category",
   "Could not update category, please try later": "Could not update category, please try later",
-  "Id should not be null": "Id should not be null"
+  "Id should not be null": "Id should not be null",
+  "validations": {
+    "emptyId": "Id should not be empty"
+  },
+  "dbErrors": {
+    "selectError" : "Could not get result from DB",
+    "noResults": "No records were found in DB",
+    "multipleResults": "Multiple records were found for your query"
+  }
 }

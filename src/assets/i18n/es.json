@@ -2,6 +2,7 @@
   "Home": "Inicio",
   "Sign in": "Registrarme",
   "Customers": "Clientes",
+  "Providers": "Proveedores",
   "Categories": "Categorías",
   "Products": "Productos",
   "Invoices": "Facturas",
@@ -24,5 +25,12 @@
   "Update Category": "Actualizar Categoría",
   "Could not update category, please try later": "No fue posible actualizar categoría, intente más tarde",
   "Id should not be null": "El ID no debe ser nulo"
-
+  "validations": {
+    "emptyId": "El ID no debe ser nulo"
+  },
+  "dbErrors": {
+    "selectError" : "no fue posible obtener resultados de la BD",
+    "noResults": "No se encontraron resultados en la BD",
+    "multipleResults": "Multiples resultados encontrados para la consulta"
+  }
 }

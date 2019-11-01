@@ -1,8 +1,7 @@
-import {CategoryService} from "./category.service";
-import {Category} from "../model/category";
-import {UuidProvider} from "../db/uuid.provider";
-import {TranslateService} from "@ngx-translate/core";
-import {Observable} from "rxjs";
+import { CategoryService } from "./category.service";
+import { Category} from "../model/category";
+import { UuidProvider} from "../db/uuid.provider";
+import { Observable} from "rxjs";
 
 describe('CategoryService', () =>{
   let dbSpy, querySpy, dbSpyErr, querySpyErr, idSpy, parseDataSpy, getSpy;
