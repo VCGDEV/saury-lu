@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
 import {Entity} from "./entity";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable()
 export class DBAccessor<T extends Entity> {
-
+  _err: any;
   _createGetByIdQuery(entity: T) : string {
     let sql = `select`;
     let properties = this._getProperties(entity)
@@ -17,7 +18,7 @@ export class DBAccessor<T extends Entity> {
       sql+=` ${prop},`;
     });
     sql = this._replaceLastComma(sql);
-    sql += ` from ${entity.table} ${where}`
+    sql += ` from ${entity.table} ${where}`;
     return sql;
   }
 
@@ -76,6 +77,20 @@ export class DBAccessor<T extends Entity> {
   private _replaceLastComma(sql: string) {
     const lastIdx = sql.lastIndexOf(',');
     return sql.substr(0, lastIdx);
+  }
+
+  parseErrors(translate: TranslateService) {
+    Object.getOwnPropertyNames(this._err.dbErrors)
+      .forEach(key => {
+        translate.get(`dbErrors.${key}`)
+          .subscribe(value => this._err.dbErrors[key].description = value);
+      });
+
+    Object.getOwnPropertyNames(this._err.validations)
+      .forEach(key => {
+        translate.get(`validations.${key}`)
+          .subscribe(value => this._err.validations[key].description = value);
+      });
   }
 }
 

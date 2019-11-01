@@ -18,4 +18,8 @@ export class DBError {
   set description(desc: string) {
     this._description = desc;
   }
+
+  public toString (): string {
+    return `{ "code": "${this._code}", "description": "${this._description}" }`;
+  }
 }

@@ -24,13 +24,16 @@
   "Submit": "Aceptar",
   "Update Category": "Actualizar Categoría",
   "Could not update category, please try later": "No fue posible actualizar categoría, intente más tarde",
-  "Id should not be null": "El ID no debe ser nulo"
+  "Id should not be null": "El ID no debe ser nulo",
   "validations": {
-    "emptyId": "El ID no debe ser nulo"
+    "emptyId": "El ID no debe ser nulo",
+    "nullObject": "El valor no debe ser nulo"
   },
   "dbErrors": {
     "selectError" : "no fue posible obtener resultados de la BD",
     "noResults": "No se encontraron resultados en la BD",
-    "multipleResults": "Multiples resultados encontrados para la consulta"
+    "multipleResults": "Multiples resultados encontrados para la consulta",
+    "insertError": "No fue posible insertar el objeto",
+    "updateError": "Error al actualizar en base de datos"
   }
 }

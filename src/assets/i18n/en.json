@@ -26,11 +26,14 @@
   "Could not update category, please try later": "Could not update category, please try later",
   "Id should not be null": "Id should not be null",
   "validations": {
-    "emptyId": "Id should not be empty"
+    "emptyId": "Id should not be empty",
+    "nullObject": "Value should not be null"
   },
   "dbErrors": {
     "selectError" : "Could not get result from DB",
     "noResults": "No records were found in DB",
-    "multipleResults": "Multiple records were found for your query"
+    "multipleResults": "Multiple records were found for your query",
+    "insertError": "Could not save object into DB",
+    "updateError": "Could not update object into DB"
   }
 }
