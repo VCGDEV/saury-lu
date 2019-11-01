@@ -97,4 +97,15 @@ describe('ProviderService', () => {
       .catch(err => expect(err).toEqual({ error: errors.validations.emptyId }));
   });
 
+  it('Should return provider by id', () => {
+    const provider: Provider = new Provider();
+    provider.description = 'A provider name';
+    provider.isActive = true;
+    provider.providerId = 'prov-1';
+
+    expect.assertions(1);
+    providerService.findById('prov-1')
+      .then(result => expect(result).toEqual(provider));
+
+  });
 });

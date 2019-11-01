@@ -10,31 +10,22 @@ import {DBError} from "../db/db.error";
 @Injectable()
 export class ProviderService extends DBAccessor<Provider>
   implements CrudRepository<Provider> {
-  private _err =
+  _err =
     {
       dbErrors: {
         selectError: new DBError('selectError','Could not get result from DB'),
         noResults: new DBError('noResults','No records were found in DB'),
-        multipleResults: new DBError('multipleResults','Multiple records were found for your query')
+        multipleResults: new DBError('multipleResults','Multiple records were found for your query'),
       },
       validations: {
-        emptyId: new  DBError('emptyId','Id to search should not be empty')
+        emptyId: new  DBError('emptyId','Id to search should not be empty'),
+        nullObject:  new  DBError('nullObject','Value should not be null')
       }
     };
   constructor(private _db: DBProvider, private _idProvider: UuidProvider,
               private _translate: TranslateService) {
     super();
-    this._translate.get('validations.emptyId')
-      .subscribe(value => this._err.validations.emptyId.description = value);
-
-    this._translate.get('dbErrors.selectError')
-      .subscribe(value => this._err.dbErrors.selectError.description = value);
-
-    this._translate.get('dbErrors.selectError')
-      .subscribe(value => this._err.dbErrors.noResults.description = value);
-
-    this._translate.get('dbErrors.selectError')
-      .subscribe(value => this._err.dbErrors.multipleResults.description = value);
+    this.parseErrors(this._translate);
   }
 
   findAll(): Promise<Array<Provider>> {
@@ -58,8 +49,7 @@ export class ProviderService extends DBAccessor<Provider>
   }
 
   findById(id: string): Promise<Provider> {
-    if(id && id.trim() === '') {
-      console.log(id);
+    if(!id || ( id && id.trim() === '')) {
       return Promise.reject({error: this._err.validations.emptyId });
     }
     const provider = new Provider();
@@ -92,6 +82,9 @@ export class ProviderService extends DBAccessor<Provider>
     return undefined;
   }
 
+  validate(provider: Provider, update: boolean = false): Array<DBError> {
+    return null;
+  }
 
   get errors():any {
     return this._err;
